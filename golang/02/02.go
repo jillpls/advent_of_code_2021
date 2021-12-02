@@ -65,4 +65,22 @@ func main() {
 	}
 
 	fmt.Printf("%d * %d = %d\n", pos_x, pos_y, pos_x*pos_y*(-1))
+
+	pos_x = 0
+	pos_y = 0
+	aim := 0
+
+	for _, instr := range instructions {
+		switch instr.direction {
+		case "forward":
+			pos_x += instr.amount
+			pos_y -= aim * instr.amount
+		case "up":
+			aim -= instr.amount
+		case "down":
+			aim += instr.amount
+		}
+	}
+
+	fmt.Printf("%d * %d = %d\n", pos_x, pos_y, pos_x*pos_y*(-1))
 }
