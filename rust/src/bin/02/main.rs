@@ -7,25 +7,26 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let args = &args[1..];
     println!("{:?}", args);
-    if args.len() <= 0 {
+    if args.is_empty() {
         panic!();
     }
 
-    let instructions = if let Ok(lines) =  read_lines(&args[0]) {
-        let mut instructions : Vec<(String, i32)> = Vec::new();
-        for line in lines {
-            if let Ok(l) = line {
-                let l_split : Vec<&str> = l.split(" ").collect();
-                let instruction =  (String::from(l_split[0]), String::from(l_split[1]).parse::<i32>().unwrap());
-                instructions.push(instruction);
-            }
+    let lines = read_lines(&args[0]).unwrap();
+
+    let instructions = {
+        let mut instructions: Vec<(String, i32)> = Vec::new();
+        for line in lines.flatten() {
+            let l_split: Vec<&str> = line.split(' ').collect();
+            let instruction = (
+                String::from(l_split[0]),
+                String::from(l_split[1]).parse::<i32>().unwrap(),
+            );
+            instructions.push(instruction);
         }
         instructions
-    } else {
-        Vec::new()
     };
 
-    let mut pos : (i32, i32) = (0, 0);
+    let mut pos: (i32, i32) = (0, 0);
 
     for instr in &instructions {
         match instr.0.as_ref() {
@@ -44,9 +45,9 @@ fn main() {
 
     println!("{} * {} = {}", pos.0, pos.1, pos.0 * pos.1);
 
-    let mut aim : i32 = 0;
+    let mut aim: i32 = 0;
     pos = (0, 0);
-    
+
     for instr in &instructions {
         match instr.0.as_ref() {
             "forward" => {
@@ -64,14 +65,14 @@ fn main() {
     }
 
     println!("{} * {} = {}", pos.0, pos.1, pos.0 * pos.1);
-
-
 }
 
 // The output is wrapped in a Result to allow matching on errors
 // Returns an Iterator to the Reader of the lines of the file.
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where P: AsRef<Path>, {
+where
+    P: AsRef<Path>,
+{
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
 }
