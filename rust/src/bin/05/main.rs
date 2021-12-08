@@ -52,21 +52,11 @@ fn main() {
         let end_y = end.1 as i64;
 
         println!("({},{}) -> ({},{})", start_x, start_y, end_x, end_y);
-        let s_e_x : i64 = (end_x - start_x) as i64;
-        let s_e_y : i64 = (end_y - start_y) as i64;
+        let s_e_x: i64 = (end_x - start_x) as i64;
+        let s_e_y: i64 = (end_y - start_y) as i64;
 
-        let dir_x = if s_e_x == 0 {
-            0
-        }
-        else {
-            s_e_x / s_e_x.abs()
-        };
-        let dir_y = if s_e_y == 0 {
-            0
-        }
-        else {
-            s_e_y / s_e_y.abs()
-        };
+        let dir_x = if s_e_x == 0 { 0 } else { s_e_x / s_e_x.abs() };
+        let dir_y = if s_e_y == 0 { 0 } else { s_e_y / s_e_y.abs() };
 
         let len = max(
             ((end_x - start_x) as i64).abs(),
@@ -100,8 +90,7 @@ fn main() {
         //     }
         // }
     }
-    for v in true_grid {
-    }
+    for v in true_grid {}
     println!("{}", count);
 }
 

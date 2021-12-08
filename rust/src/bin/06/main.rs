@@ -1,7 +1,7 @@
+use chrono;
 use std::env;
 use std::fs;
 use std::str::Split;
-use chrono;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -15,7 +15,7 @@ fn main() {
 
     let input = fs::read_to_string(&args[0]).unwrap();
 
-    let fish_input : Split<char> = input.split(',');
+    let fish_input: Split<char> = input.split(',');
     let mut lantern_fish = vec![0; 9];
 
     for f in fish_input {
@@ -33,8 +33,11 @@ fn main() {
 
     let sum: usize = lantern_fish.iter().sum();
     let end = chrono::Utc::now();
-    let duration = end-start;
+    let duration = end - start;
 
     println!("Total fish: {}", sum);
-    println!("Time elapsed: {} ms", duration.num_nanoseconds().unwrap_or(0) as f64 / 1000000.0);
+    println!(
+        "Time elapsed: {} ms",
+        duration.num_nanoseconds().unwrap_or(0) as f64 / 1000000.0
+    );
 }

@@ -60,13 +60,16 @@ fn get_median(values: &Vec<i32>) -> i32 {
     }
 }
 
-fn get_fuel(crabs: &Vec<i32>, pos: i32, incremental_fuel : bool) -> i32 {
-    if ! incremental_fuel {
+fn get_fuel(crabs: &Vec<i32>, pos: i32, incremental_fuel: bool) -> i32 {
+    if !incremental_fuel {
         crabs.iter().map(|x| (*x - pos).abs()).sum()
     } else {
-        crabs.iter().map(|x| {
-            let d = (*x - pos).abs();
-            (d * d + d) / 2
-        }).sum()
+        crabs
+            .iter()
+            .map(|x| {
+                let d = (*x - pos).abs();
+                (d * d + d) / 2
+            })
+            .sum()
     }
 }

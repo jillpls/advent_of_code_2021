@@ -26,7 +26,7 @@ fn main() {
             current_parse.push(line);
         }
     }
-    if ! current_parse.is_empty() {
+    if !current_parse.is_empty() {
         parses.push(current_parse);
     }
 
@@ -41,7 +41,7 @@ fn main() {
     let mut boards_clone = boards.clone();
 
     let mut result = (0, 0);
-    'outer : for n in numbers.clone() {
+    'outer: for n in numbers.clone() {
         if let Some(v) = map.get(&n) {
             println!("{} drawn", n);
             for (i, x, y) in v {
@@ -49,7 +49,7 @@ fn main() {
                 if check_board(&boards[*i], *x, *y) {
                     println!("Board {} won", i);
                     result = (n, *i);
-                    break 'outer
+                    break 'outer;
                 }
             }
         }
@@ -58,7 +58,7 @@ fn main() {
     let mut sum = 0;
     for v in &boards[result.1] {
         for w in v {
-            if ! w.1 {
+            if !w.1 {
                 sum += w.0;
             }
         }
@@ -66,20 +66,20 @@ fn main() {
 
     let mut boards = boards_clone;
 
-    let mut winners : HashMap<usize, ()> = HashMap::new();
+    let mut winners: HashMap<usize, ()> = HashMap::new();
     let mut result = (0, 0);
-    'outer : for n in numbers {
+    'outer: for n in numbers {
         if let Some(v) = map.get(&n) {
             println!("{} drawn", n);
             for (i, x, y) in v {
                 boards[*i][*x][*y].1 = true;
                 if check_board(&boards[*i], *x, *y) {
-                    if ! winners.contains_key(i) {
+                    if !winners.contains_key(i) {
                         println!("Board {} won", i);
                         winners.insert(*i, ());
                         result = (n, *i);
                         if winners.len() == boards.len() {
-                            break 'outer
+                            break 'outer;
                         }
                     }
                 }
@@ -90,7 +90,7 @@ fn main() {
     let mut sum = 0;
     for v in &boards[result.1] {
         for w in v {
-            if ! w.1 {
+            if !w.1 {
                 sum += w.0;
             }
         }
@@ -99,15 +99,15 @@ fn main() {
     println!("{} * {} = {}", sum, result.0, sum * result.0);
 }
 
-fn check_board(board : &Vec<Vec<(u16, bool)>>, x : usize, y : usize) -> bool {
+fn check_board(board: &Vec<Vec<(u16, bool)>>, x: usize, y: usize) -> bool {
     let mut row = true;
     let mut col = true;
 
     for i in 0..5 {
-        if ! board[x][i].1 {
+        if !board[x][i].1 {
             col = false;
         }
-        if ! board[i][y].1 {
+        if !board[i][y].1 {
             row = false;
         }
     }
