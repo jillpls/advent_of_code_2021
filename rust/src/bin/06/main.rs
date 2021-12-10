@@ -25,7 +25,7 @@ fn main() {
 
     let mut idx: usize = 0;
 
-    for d in 0..256 {
+    for _ in 0..256 {
         let add_idx = (idx + 7) % 9;
         lantern_fish[add_idx] += lantern_fish[idx];
         idx = (idx + 1) % 9;

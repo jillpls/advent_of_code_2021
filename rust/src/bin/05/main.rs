@@ -1,4 +1,4 @@
-use std::cmp::{max, min};
+use std::cmp::max;
 use std::collections::HashMap;
 use std::env;
 use std::fs::File;
@@ -76,21 +76,7 @@ fn main() {
                 grid.insert((x, y), 1);
             }
         }
-        // for x in start_x..end_x+1 {
-        //     for y in start_y..end_y+1 {
-        //         true_grid[x as usize][y as usize] += 1;
-        //         if let Some(v) = grid.get_mut(&(x,y)) {
-        //             *v += 1;
-        //             if *v == 2 {
-        //                 count += 1;
-        //             }
-        //         } else {
-        //             grid.insert((x, y), 1);
-        //         }
-        //     }
-        // }
     }
-    for v in true_grid {}
     println!("{}", count);
 }
 

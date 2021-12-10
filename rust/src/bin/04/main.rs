@@ -38,7 +38,7 @@ fn main() {
         .map(|x| x.parse::<u16>().unwrap())
         .collect();
 
-    let mut boards_clone = boards.clone();
+    let boards_clone = boards.clone();
 
     let mut result = (0, 0);
     'outer: for n in numbers.clone() {
@@ -55,11 +55,11 @@ fn main() {
         }
     }
 
-    let mut sum = 0;
+    let mut _sum = 0;
     for v in &boards[result.1] {
         for w in v {
             if !w.1 {
-                sum += w.0;
+                _sum += w.0;
             }
         }
     }
@@ -68,7 +68,7 @@ fn main() {
 
     let mut winners: HashMap<usize, ()> = HashMap::new();
     let mut result = (0, 0);
-    'outer: for n in numbers {
+    'outer2: for n in numbers {
         if let Some(v) = map.get(&n) {
             println!("{} drawn", n);
             for (i, x, y) in v {
@@ -79,7 +79,7 @@ fn main() {
                         winners.insert(*i, ());
                         result = (n, *i);
                         if winners.len() == boards.len() {
-                            break 'outer;
+                            break 'outer2;
                         }
                     }
                 }

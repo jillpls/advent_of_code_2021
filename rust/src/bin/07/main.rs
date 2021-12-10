@@ -1,7 +1,5 @@
-use chrono;
 use std::env;
 use std::fs;
-use std::str::Split;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -10,8 +8,6 @@ fn main() {
     if args.is_empty() {
         panic!();
     }
-
-    let start = chrono::Utc::now();
 
     let input = fs::read_to_string(&args[0]).unwrap();
 
