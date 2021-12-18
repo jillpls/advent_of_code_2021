@@ -18,13 +18,23 @@ impl SFNumber {
         SFNumber::Pair(Box::from(self), Box::from(other)).reduce()
     }
 
+    pub fn magnitude(&self) -> i32 {
+        match self {
+            Self::Number(v) => {
+                *v
+            },
+            Self::Pair(v1, v2) => {
+                3*v1.magnitude() + 2*v2.magnitude()
+            }
+        }
+    }
+
     pub fn reduce(self) -> Self {
         let mut number = self;
         let mut split = true;
         while split {
             let mut exploded = true;
             while exploded {
-                println!("{}", number);
                 let (num, _, exp) = number.explode_rec(0);
                 number = num;
                 exploded = exp;
@@ -104,7 +114,6 @@ impl SFNumber {
 
     fn explode_rec(self, depth : u32) -> (Self, Option<(i32, i32)>, bool ){
         if self.is_number_pair() && depth >= 4 {
-            println!("{}", self);
             let exp_val = if let Self::Pair(v1, v2) = &self {
                 (if let Self::Number(v) = v1.as_ref() { *v } else { panic!()}, if let Self::Number(v) = v2.as_ref() { *v } else { panic!() })
             } else {
@@ -195,6 +204,25 @@ fn main() {
         final_number = final_number.sum(number.clone().reduce());
     }
     println!("{}", final_number);
+    println!("{}", final_number.magnitude());
+
+    let mut max = 0;
+
+    for i in 0..numbers.len() {
+        for j in i+1..numbers.len() {
+            let num1 = numbers[i].clone();
+            let num2 = numbers[j].clone();
+            let num12 = num1.clone().sum(num2.clone()).magnitude();
+            if num12 > max {
+                max = num12;
+            }
+            let num21 = num2.sum(num1).magnitude();
+            if num21 > max {
+                max = num21;
+            }
+        }
+    }
+    println!("{}", max);
 }
 
 fn parse_sf_number(chars : &mut std::str::Chars) -> SFNumber {
