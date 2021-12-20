@@ -81,6 +81,10 @@ path = "src/bin/18/main.rs"
 name = "19"
 path = "src/bin/19/main.rs"
 
+[[bin]]
+name = "20"
+path = "src/bin/20/main.rs"
+
 [dependencies]
 chrono = "0.4"
 bitvec = "0.22.3"
