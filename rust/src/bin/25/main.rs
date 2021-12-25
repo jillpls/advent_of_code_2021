@@ -1,12 +1,9 @@
-use std::collections::{HashMap};
 use std::env;
 use std::fs::File;
 use std::io;
-use std::io::{BufRead};
+use std::io::BufRead;
 use std::iter::Iterator;
 use std::path::Path;
-use std::slice::Iter;
-use itertools::process_results;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -33,7 +30,7 @@ fn main() {
 
     let mut steps = 0;
     loop {
-        steps+=1;
+        steps += 1;
         let mut moved = false;
         for i in 0..2 {
             let mut new_map = map.clone();
@@ -59,15 +56,12 @@ fn main() {
             }
 
             map = new_map;
-
         }
-
 
         if !moved {
             break;
         }
     }
-
 
     for y in 0..map[0].len() {
         for x in 0..map.len() {

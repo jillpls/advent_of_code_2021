@@ -2,7 +2,7 @@ use bitvec::prelude::*;
 use std::collections::HashMap;
 use std::fs::File;
 use std::ops::BitAnd;
-use std::{env, io};
+use std::{env};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -22,16 +22,15 @@ fn main() {
     let (x_min, x_max) = (*x_area.iter().min().unwrap(), *x_area.iter().max().unwrap());
     println!("[{},{}]", x_min, x_max);
     println!("[{},{}]", y_min, y_max);
-    let mut max_x_vel = x_max;
-    let mut current_max_y_vel = y_min;
+    let max_x_vel = x_max;
+    let current_max_y_vel = y_min;
 
     let mut pos = (0, 0);
-    let mut velocity = (6, 9);
     let mut velocities = Vec::new();
     for j in current_max_y_vel..10000 {
-        for i in 0..max_x_vel+1 {
+        for i in 0..max_x_vel + 1 {
             let initial_velocity = (i, j);
-            velocity = initial_velocity;
+            let mut velocity= initial_velocity;
             pos = (0, 0);
             while pos.0 <= x_max
                 && (pos.0 >= x_min || velocity.0 > 0)
@@ -50,6 +49,6 @@ fn main() {
             }
         }
     }
-    println!("{}", (current_max_y_vel * (current_max_y_vel + 1))/2 );
-    println!("{}", velocities.len() );
+    println!("{}", (current_max_y_vel * (current_max_y_vel + 1)) / 2);
+    println!("{}", velocities.len());
 }

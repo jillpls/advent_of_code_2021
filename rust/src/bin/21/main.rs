@@ -1,12 +1,12 @@
 use std::cmp::{max, min};
-use std::collections::{HashMap};
+use std::collections::HashMap;
 use std::env;
 use std::fs::File;
 use std::io;
-use std::io::{BufRead};
+use std::io::BufRead;
 use std::path::Path;
 
-const WINNING_SCORE : i32 = 21;
+const WINNING_SCORE: i32 = 21;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -62,13 +62,16 @@ fn main() {
     println!("{:?}", max(winners.0, winners.1));
 }
 
-fn get_winners(prev_game_state : &GameState, cache : &mut HashMap<GameState, (u64, u64)>) -> (u64, u64) {
+fn get_winners(
+    prev_game_state: &GameState,
+    cache: &mut HashMap<GameState, (u64, u64)>,
+) -> (u64, u64) {
     let mut winners = (0, 0);
     for r1 in 1..4 {
         for r2 in 1..4 {
             for r3 in 1..4 {
                 let ((mut pos1, mut score1), (mut pos2, mut score2), player) = prev_game_state;
-                if ! player {
+                if !player {
                     pos1 += r1 + r2 + r3;
                     pos1 = pos1 % 10;
                     score1 += pos1 + 1;
@@ -80,11 +83,11 @@ fn get_winners(prev_game_state : &GameState, cache : &mut HashMap<GameState, (u6
                 let game_state = ((pos1, score1), (pos2, score2), !*player);
 
                 if score1 >= WINNING_SCORE {
-                    winners.0 +=1;
+                    winners.0 += 1;
                 } else if score2 >= WINNING_SCORE {
-                    winners.1 +=1;
+                    winners.1 += 1;
                 } else {
-                    let rec_winners = if let Some(cached) = cache.get(&game_state){
+                    let rec_winners = if let Some(cached) = cache.get(&game_state) {
                         *cached
                     } else {
                         let w = get_winners(&game_state, cache);
